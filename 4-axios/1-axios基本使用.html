@@ -21,59 +21,24 @@
         <button class="btn btn-danger" onclick="sendDELETE()"> 发送 DELETE 请求 </button>
     </div>
     <script>
-        function sendGET() {
-            axios({
-                url: "http://localhost:8000/server",
-                method: "get",
-                params: {
-                    a: 100
-                },
-                headers:{
-                    a:"asd"
-                }
-            }).then((response) => {
-                console.log(response)
-            })
-        }
+        /* 
+            let btns = document.querySelectorAll("button")
+            btn.onclick = function(){}
+            btn.addEventListener("click", function(){})
 
-        function sendPOST(){
+            onclick="sendGET()"  // 写在标签上的,调用函数
+        */
+        function sendGET(){
             axios({
-                method:"post",
+                method:"get",
                 url:"http://localhost:8000/server",
-                headers:{
-                    a:100
-                },
-                params:{
-                    a:100,
-                    b:200
-                },
-                data:{
-                    name:"你是我的小苹果"
-                }
             }).then(response=>{
-                console.log(response)
-            })
-        }
-
-        function sendPut(){
-            axios({
-                method:"put",
-                url:"http://localhost:8000/server",
-                data:{
-                    name:"小倩",
-                    love:"宁采臣"
-                }
-            })
-        }
-
-        function sendDELETE(){
-            axios({
-                url:"http://localhost:8000/server",
-                method:"delete",
-                data:{
-                    id:8,
-                    data:'跳舞'
-                }
+                // 返回的数据
+                console.log(response.data)
+                // 状态码
+                console.log(response.status)
+                // 状态字符串
+                console.log(response.statusText)
             })
         }
     </script>

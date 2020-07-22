@@ -13,8 +13,6 @@ app.get("/page", (request, response) => {
 app.all("/server", (request, response) => {
     //设置 cors
     response.setHeader("Access-Control-Allow-Origin", "*");
-    response.setHeader("Access-Control-Allow-Headers", "*");
-    response.setHeader("Access-Control-Allow-Methods", "*");
     // response.end("服务器端的数据");
     response.end('{"test": "服务器端的数据"}');
 });
