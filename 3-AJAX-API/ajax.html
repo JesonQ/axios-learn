@@ -24,11 +24,11 @@
     let btns = document.querySelectorAll("button");
     // 绑定事件
     btns[0].onclick = function (){
-        // 创建实例
+        // 1 创建实例
         let xhr = new XMLHttpRequest();
         // 设置响应格式
         xhr.responseType = "json"
-        // 绑定事件
+        // 2 绑定事件
         xhr.onreadystatechange = function (){
             if(xhr.readyState === 4){
                 if(xhr.status === 200){
@@ -44,9 +44,9 @@
                 }
             }
         }
-        // 初始化
+        // 3 初始化
         xhr.open("get","/server?a=100&b=200")
-        // 发送
+        // 4 发送
         xhr.send()
     }
 
