@@ -1,28 +1,86 @@
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>axios模拟实现</title>
 </head>
+
 <body>
 
-<script>
-    /*
-        axios({
-            url: 'http:localhost:8000/server',
-            method: 'POST',
-            params: {id:1},
-            data: {username:'风儿'},
-            data:"a=100&b=200"
-        });
-
-        返回值
-            返回的是一个 promise 对象
-     */
+    <script>
+        /*
+            axios({
+                url: 'http:localhost:8000/server',
+                method: 'POST',
+                params: {id:1},
+                data: {username:'风儿'},
+                data:"a=100&b=200"
+            });
     
-</script>
+            返回值
+                返回的是一个 promise 对象
+         */
+
+        function axios({ url, method = "get", params, data }) {
+            return new Promise((resolve, reject) => {
+                let x = new XMLHttpRequest()
+                x.onreadystatechange = function () {
+                    if (x.readyState === 4) {
+                        if (x.status === 200) {
+                            let data = x.response;
+                            let status = x.status;
+                            let statusText = x.statusText;
+                            let request = x;
+                            let headers = x.getAllResponseHeaders()
+                            let proObject = { data, status, statusText, request, headers }
+                            resolve(proObject)
+                        } else {
+                            reject("请求失败了,状态码为" + x.status)
+                        }
+                    }
+                }
+                let query = ""
+                if (typeof params === "object") {
+                    for (let i in params) {
+                        query += `${i}=${params[i]}&`
+                    }
+                }
+                x.open(method, url + "?" + query)
+                if (method === "get" || method === "delete") {
+                    x.send()
+                }
+                if (method === "post" || method === "put" || method === "patch") {
+                    // data
+                    if (typeof data === "object") {
+                        let body = JSON.stringify(data)
+                        x.setRequestHeader("Content-type","application/json")
+                        x.send(body)
+                    }
+                    if(typeof data === "string"){
+                        x.setRequestHeader("Content-type","application/x-www-form-urlencoded")
+                        x.send(data)
+                    }
+
+                }
+
+            })
+        }
+
+        axios({
+            url: 'http://localhost:8000/server',
+            method: 'post',
+            params: { id: 1 },
+            // data: {username:'风儿'},
+            data:"a=100&b=200"
+        }).then(response => {
+            console.log(response)
+        })
+
+    </script>
 </body>
+
 </html>

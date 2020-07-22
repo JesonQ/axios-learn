@@ -21,7 +21,20 @@
         <button class="btn btn-danger" onclick="sendDELETE()"> 发送 DELETE 请求 </button>
     </div>
     <script>
-        
+        function sendGET() {
+            axios.get("http:localhost:8000/server?a=100").then(response => {
+                console.log(response)
+            })
+        }
+
+        function sendPOST(){
+            // axios.post("http://localhost:8000/server",{a:100,b:200},{headers:{name:"xiaoqian"}}).then(response=>{
+            //     console.log(response)
+            // })
+            axios.post("http://localhost:8000/server",{data:{a:100,b:200}}).then(response=>{
+                console.log(response)
+            })
+        }
     </script>
 </body>
 

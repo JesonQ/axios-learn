@@ -20,12 +20,84 @@
     </div>
 </body>
 <script>
+    let btns = document.querySelectorAll("button")
+    // get
+    let xhr;
+    btns[0].onclick = function () {
+        xhr = new XMLHttpRequest()
+        xhr.responseType = "json"
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    // console.log(xhr.responseText)
+                    console.log(xhr.response)
+                    console.log(xhr.getAllResponseHeaders())
+                    console.log(xhr.getResponseHeader("date"))
+                }
+            }
+        }
+        xhr.open("get", "http://localhost:8000/delay-server")
+        xhr.send()
+    }
+
+    // post
+    btns[1].onclick = function () {
+        let x = new XMLHttpRequest()
+        x.onreadystatechange = function () {
+            if (x.readyState === 4) {
+                if (x.status === 200) {
+                    console.log(x.responseText)
+                }
+            }
+        }
+        let data = { a: 100, b: 200 }
+        x.open("post", "http://localhost:8000/server")
+        // json
+        // let body = JSON.stringify(data)
+        // x.setRequestHeader("Content-type", "application/json")
+        // x.send(body)
+        // urlencoded
+        let query = ""
+        for (let i in data) {
+            query += `${i}=${data[i]}&`
+        }
+        query = query.substr(0, query.length - 1)
+        x.setRequestHeader("content-type","application/x-www-form-urlencoded")
+        x.send(query)
+    }
+    // 超时请求
+    btns[2].addEventListener("click", function () {
+        let x = new XMLHttpRequest()
+        x.timeout = 2000
+        x.ontimeout = function () {
+            console.log("超时回来,我不要了,thanks")
+        }
+        // x.onerror = function (){
+        //     console.log("哎呀,页面走丢了")
+        // }
+        x.onreadystatechange = function () {
+            if (x.readyState === 4) {
+                if (x.status === 200) {
+                    console.log(x.response)
+                }
+            }
+        }
+        x.open("post", "http://localhost:8000/server")
+        x.send()
+    })
+
+    // 中断请求
     
-    
-    </script>
+    btns[3].onclick = function () {
+        xhr.abort()
+    }
+
+
+
+</script>
 
 <script>
-  
+
 </script>
 
 

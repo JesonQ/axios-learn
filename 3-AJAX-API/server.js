@@ -14,6 +14,7 @@ app.all("/server", (request, response) => {
     //返回 data.json 的文件数据
     // response.end("服务器端的数据");
     response.setHeader('Access-Control-Allow-Origin', '*')
+    response.setHeader('Access-Control-Allow-Headers', '*')
     response.end('{"data": "服务器端的数据"}');
 });
 
@@ -22,7 +23,7 @@ app.all("/delay-server", (request, response) => {
     //返回 data.json 的文件数据
     setTimeout(() => {
         response.end('{"data": "服务器端的数据"}');
-    }, 2000);
+    }, 4000);
 });
 
 //启动服务
