@@ -22,7 +22,7 @@
 <script>
     // 获取按钮
     let btns = document.querySelectorAll("button");
-    // 绑定事件
+    // 绑定事件 get请求
     btns[0].onclick = function (){
         // 1 创建实例
         let xhr = new XMLHttpRequest();
@@ -49,7 +49,40 @@
         // 4 发送
         xhr.send()
     }
+    // 发送ajax POST请求
+    btns[1].addEventListener("click", function (){
+        // 1. 创建实例
+        let xhr = new XMLHttpRequest()
+        // 绑定事件
+        xhr.onreadystatechange = function (){
+            if(xhr.readyState === 4){
+                if(xhr.status === 200){
+                    console.log(xhr.response)
+                }
+            }
+        }
+        let data = {a:100,b:200}
+        // 初始化
+        xhr.open("post","server")
 
+        // urlencoded
+        // let query = ""
+        // for(let i in data){
+        //     query += `${i}=${data[i]}&`
+        // }
+        // query = query.substr(0, query.length-1)
+        // // 设置请求头
+        // xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded")
+        // // console.log(query)
+        // xhr.send(query)
+
+        // json
+        let body = JSON.stringify(data)
+        // console.log(body)
+        // 设置请求头
+        xhr.setRequestHeader("Content-type","application/json")
+        xhr.send(body)
+    })
 </script>
 
 <script>
