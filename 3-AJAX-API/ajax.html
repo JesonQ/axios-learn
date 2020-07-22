@@ -83,6 +83,39 @@
         xhr.setRequestHeader("Content-type","application/json")
         xhr.send(body)
     })
+    // 发送ajax 超时请求
+    let x;
+    btns[2].onclick = function (){
+        // 1.
+        x = new XMLHttpRequest()
+        // 设置超时时间
+        // x.timeout = 3000;
+        // // 绑定超时事件
+        // x.ontimeout = function (){
+        //     console.log("哎呀,网络不太好,超时了!!")
+        // }
+        // 网络错误提示
+        x.onerror = function (){
+            console.log("哎呀,网络不通了!!")
+        }
+        // 2. 
+        x.onreadystatechange = function (){
+            if(x.readyState === 4){
+                if(x.status === 200){
+                    console.log(x.response)
+                }
+            }
+        }
+        // 3. 
+        x.open("get","/delay-server")
+        // 4 
+        x.send()
+    }
+    // 取消请求
+    btns[3].onclick = function (){
+        // 中断请求
+        x.abort()
+    }
 </script>
 
 <script>
