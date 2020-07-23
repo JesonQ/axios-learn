@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>axios取消请求的实现原理</title>
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <h2 class="page-header">取消请求</h2>
+        <button onclick="send()" class="btn btn-primary">发送</button>
+        <button onclick="cancel()" class="btn btn-danger">取消</button>
+    </div>
+    <script>
+
+        /* 
+            封装思路:
+            1. 封装axios函数发送xhr请求,返回一个promise对象
+            2. 封装send方法发送请求,加入cancelToken配置属性
+            3. 创建CancelToken构造函数,并将其添加到axios身上
+            4. 在CancelToken实例对象身上添加属性promise,外部定义resolvePromise用来存储resolve
+            5. 在构造函数axios中处理config.cancelToken.promise.then成功的回调中取消发送x.abort()
+            6. 调用CancelToken参数executor
+        */
+
+        
+    </script>
+</body>
+
+</html>

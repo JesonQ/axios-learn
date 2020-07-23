@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>axios 拦截器的实现原理</title>
+</head>
+
+<body>
+    <script>
+        /* 
+            封装思路:
+                1. 构造函数InterceptorManager,并添加属性handlers
+                2. 给InterceptorManager原型添加use方法,往handlers推实参
+                3. 创建构造函数Axios, 并添加config/intercetors对象(添加request/response属性)
+                4. 封装Axios原型request方法
+                    1) 创建数组chain启动链条(添加dispatchRequest发送请求的值)
+                    2) 请求拦截器往数组前推, 响应拦截器往数组后推
+                    3) 创建一个成功的promise触发链条的调用,判断链条的长度,不为0一直调用
+                    4) 将最终的promise返回
+        */
+
+       
+
+        
+
+
+        
+    </script>
+</body>
+
+</html>

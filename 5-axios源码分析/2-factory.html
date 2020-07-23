@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>axios 函数对象实现原理</title>
+</head>
+<body>
+<script>
+    /* 
+        封装思路:
+            1. 创建 Axios 构造函数并给实例添加属性(config,interceptors)
+            2. Axios原型对象添加方法 (request,get,post)
+            3. 声明函数createInstance,
+                1)  实例化context,
+                    创建函数instance,以Axios.prototype.request为基础创建函数,并改变this指向为context
+                    调用createInstance,实现axios()
+                2) 将原型对象身上方法绑定给instance, 实现使用axios.get(),并bind(context)
+                3) instance拥有实例的属性, instance.config
+    */
+    
+
+    // 创建构造函数
+
+
+
+</script>
+</body>
+</html>
