@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>8-取消请求</title>
+  <script src='https://cdn.bootcdn.net/ajax/libs/axios/0.19.2/axios.min.js'></script>
 </head>
 
 <body>
@@ -12,7 +13,34 @@
   <button id="q">取消</button>
 
   <script type="text/javascript">
+    let f = document.querySelector("#f")
+    let q = document.querySelector("#q")
 
+    let quxiao = null;
+    // 发送
+    f.addEventListener("click", function () {
+      axios({
+        url: "http://localhost:8000/delay-server",
+        method: "get",
+        cancelToken: new axios.CancelToken(function executor(c) {
+          // executor 函数接收一个 cancel 函数作为参数
+          quxiao = c;
+        })
+      }).then(response => {
+        console.log(response)
+      })
+    })
+
+
+    // 取消
+    q.addEventListener("click", function () {
+      quxiao("取消请求")
+    })
+
+    // let a = 100
+    // if(a === 100){
+    //   console.log(111)
+    // }
   </script>
 </body>
 

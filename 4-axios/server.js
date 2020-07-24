@@ -19,12 +19,34 @@ app.all("/server", (request, response) => {
     response.end('{"test": "服务器端的数据"}');
 });
 
+app.all("/users", (request, response) => {
+    //设置 cors
+    response.setHeader("Access-Control-Allow-Origin", "*");
+    response.setHeader("Access-Control-Allow-Headers", "*");
+    response.setHeader("Access-Control-Allow-Methods", "*");
+    // response.end("服务器端的数据");
+    response.end('{"test": "服务器端的数据users"}');
+});
+
+app.all("/goods", (request, response) => {
+    //设置 cors
+    response.setHeader("Access-Control-Allow-Origin", "*");
+    response.setHeader("Access-Control-Allow-Headers", "*");
+    response.setHeader("Access-Control-Allow-Methods", "*");
+    // response.end("服务器端的数据");
+    response.end('{"test": "服务器端的数据goods"}');
+});
+
 //延时服务
 app.all("/delay-server", (request, response) => {
     //返回 data.json 的文件数据
+    //设置 cors
+    response.setHeader("Access-Control-Allow-Origin", "*");
+    response.setHeader("Access-Control-Allow-Headers", "*");
+    response.setHeader("Access-Control-Allow-Methods", "*");
     setTimeout(() => {
         response.end('{"test": "服务器端的数据"}');
-    }, 2000);
+    }, 3000);
 });
 
 //启动服务

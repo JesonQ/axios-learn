@@ -20,11 +20,21 @@
     });
 
     local({
-      url:"/server",
-      method:"post"
+      url:"/server"
     }).then(response=>{
       console.log(response)
     })
+
+    local({
+      url:"/users",
+      headers: {
+        a: "asd"
+      }
+    }).then(response=>{
+      console.log(response)
+    })
+
+    
   </script>
 </body>
 
