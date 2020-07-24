@@ -7,7 +7,7 @@ const app = express();
 
 //创建路由规则
 app.get("/page", (request, response) => {
-    response.sendFile(__dirname + "/ajax.html");
+    response.sendFile(__dirname + "/4-axios模拟封装.html");
 });
 
 app.all("/server", (request, response) => {

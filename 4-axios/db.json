@@ -8,7 +8,7 @@
     },
     {
       "brand": "联想",
-      "color": "pink",
+      "color": "red",
       "price": 7000,
       "id": 2
     },
@@ -17,6 +17,12 @@
       "color": "black",
       "price": 5000,
       "id": 4
+    },
+    {
+      "brand": "戴尔",
+      "color": "black",
+      "price": 5000,
+      "id": 5
     }
   ]
 }

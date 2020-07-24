@@ -26,20 +26,30 @@
          */
 
         function axios({ url, method = "get", params, data }) {
+            // 大小写转换
+            method = method.toLowerCase()
             return new Promise((resolve, reject) => {
-                let x = new XMLHttpRequest()
+                // 实例
+                let x = new XMLHttpRequest();
+                // 绑定事件
                 x.onreadystatechange = function () {
                     if (x.readyState === 4) {
                         if (x.status === 200) {
-                            let data = x.response;
+                            // 数据
+                            let data = x.response
+                            // 状态码
                             let status = x.status;
+                            // 状态字符串
                             let statusText = x.statusText;
-                            let request = x;
+                            // 响应头
                             let headers = x.getAllResponseHeaders()
-                            let proObject = { data, status, statusText, request, headers }
-                            resolve(proObject)
+                            // request
+                            let request = x
+                            // 对象
+                            let result = { data, status, statusText, headers, request }
+                            resolve(result)
                         } else {
-                            reject("请求失败了,状态码为" + x.status)
+                            reject("请求失败,状态码为" + x.status)
                         }
                     }
                 }
@@ -49,31 +59,42 @@
                         query += `${i}=${params[i]}&`
                     }
                 }
+                // 初始化
                 x.open(method, url + "?" + query)
+                // get delete
                 if (method === "get" || method === "delete") {
+                    // 发送
                     x.send()
                 }
+                // post put patch
                 if (method === "post" || method === "put" || method === "patch") {
-                    // data
                     if (typeof data === "object") {
+                        // 转换
                         let body = JSON.stringify(data)
+                        // 设置请求头
                         x.setRequestHeader("Content-type","application/json")
+                        // 发送
                         x.send(body)
+                        return;
                     }
-                    if(typeof data === "string"){
+
+                    if (typeof data === "string") {
+                        // 设置请求头
                         x.setRequestHeader("Content-type","application/x-www-form-urlencoded")
+                        // 发送
                         x.send(data)
+                        return
                     }
-
                 }
-
-            })
+                // 其他请求
+                x.send()
+            }) 
         }
 
         axios({
             url: 'http://localhost:8000/server',
-            method: 'post',
-            params: { id: 1 },
+            method: 'PUT',
+            // params: { id: 1 },
             // data: {username:'风儿'},
             data:"a=100&b=200"
         }).then(response => {
