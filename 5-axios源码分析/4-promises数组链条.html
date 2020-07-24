@@ -23,12 +23,117 @@
                     4) 将最终的promise返回
         */
 
-       
+        // 构造函数
+        function InterceptorManager() {
+            // 属性
+            this.handlers = []
+        }
+
+        // use
+        InterceptorManager.prototype.use = function (resolved, rejected) {
+            this.handlers.push({ resolved, rejected })
+        }
+
+        // Axios构造函数
+        function Axios(config) {
+            this.config = config;
+            this.interceptors = {
+                request: new InterceptorManager,
+                response: new InterceptorManager
+            }
+        }
+
+        // request
+        Axios.prototype.request = function (config) {
+            // 触发链条
+            let promise = Promise.resolve(config)
+            // 发送请求
+            let dispatchRequest = function () {
+                return Promise.resolve("成功的数据")
+            }
+            // 创建链条
+            let chain = [dispatchRequest, undefined]
+            // 添加请求拦截器 往数组前推 [成功2, 成功1, dispatchRequest, undefine]
+            this.interceptors.request.handlers.forEach((callbackObj) => {
+                chain.unshift(callbackObj.resolved, callbackObj.rejected)
+            })
+            // 添加响应拦截器 往数组后推
+            this.interceptors.response.handlers.forEach((callbackObj)=>{
+                chain.push(callbackObj.resolved, callbackObj.rejected)
+            })
+            // console.log(chain)
+            // 执行数组
+            while(chain.length > 0){
+                promise = promise.then(chain.shift(),chain.shift())
+            }
+            // 反出去
+            return promise;
+        }
+
+        // 实例化
+        let axios = new Axios({})
+
+        // 添加请求拦截器
+        axios.interceptors.request.use(function one(config) {
+            // 在发送请求之前做些什么
+            console.log("请求拦截器-成功-1号")
+            // config.token = "afswefaf23bdsgfdd56vsgsf"  // 令牌
+            return config;
+        }, function one(error) {
+            // 对请求错误做些什么
+            console.log("请求拦截器-失败-1号")
+            return Promise.reject(error);
+        });
+
+        axios.interceptors.request.use(function two(config) {
+            // 在发送请求之前做些什么
+            console.log("请求拦截器-成功-2号")
+            // config.token = "afswefaf23bdsgfdd56vsgsf"  // 令牌
+            return config;
+        }, function two(error) {
+            // 对请求错误做些什么
+            console.log("请求拦截器-失败-2号")
+            return Promise.reject(error);
+        });
+
+        // 添加响应拦截器
+        axios.interceptors.response.use(function one(response) {
+            // 对响应数据做点什么
+            console.log("响应拦截器-成功-1号")
+            // console.log(response)
+            return response;
+        }, function one(error) {
+            // 对响应错误做点什么
+            console.log("响应拦截器-失败-1号")
+            return Promise.reject(error);
+        });
+
+        // 添加响应拦截器
+        axios.interceptors.response.use(function two(response) {
+            // 对响应数据做点什么
+            console.log("响应拦截器-成功-2号")
+            // console.log(response)
+            return response;
+        }, function two(error) {
+            // 对响应错误做点什么
+            console.log("响应拦截器-失败-2号")
+            return Promise.reject(error);
+        });
 
         
 
+        // 调用
+        axios.request()
 
-        
+
+
+
+
+
+
+
+
+
     </script>
 </body>
 
