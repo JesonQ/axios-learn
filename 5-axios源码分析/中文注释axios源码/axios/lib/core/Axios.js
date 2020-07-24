@@ -1,7 +1,7 @@
 'use strict';
 //Axios 构造函数文件
 
-//引入工具
+//引入工具  
 var utils = require('./../utils');
 //引入构建 URL 工具
 var buildURL = require('../helpers/buildURL');
@@ -26,6 +26,8 @@ function Axios(instanceConfig) {
         response: new InterceptorManager()
     };
 }
+
+// Axios({})
 
 /**
  * Dispatch a request
@@ -84,7 +86,7 @@ Axios.prototype.request = function request(config) {
 
     return promise;
 };
-
+// axios.request()
 Axios.prototype.getUri = function getUri(config) {
     config = mergeConfig(this.defaults, config);
     return buildURL(config.url, config.params, config.paramsSerializer).replace(/^\?/, '');

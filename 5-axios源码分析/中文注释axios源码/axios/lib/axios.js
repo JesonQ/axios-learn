@@ -37,7 +37,7 @@ function createInstance(defaultConfig) {
 // Create the default instance to be exported
 // 通过配置创建 axios 函数
 var axios = createInstance(defaults);
-
+// axios({})   axios.getUri()
 // Expose Axios class to allow class inheritance
 // axios 添加 Axios 属性, 属性值为构造函数对象  axios.CancelToken = CancelToken    new axios.Axios();
 axios.Axios = Axios;

@@ -23,6 +23,54 @@
     
 
     // 创建构造函数
+    function Axios(config){
+        // 配置
+        this.config = config;
+        // 拦截器
+        this.interceptors = [];
+    }
+    // 添加request方法
+    Axios.prototype.request = function (){
+        console.log("发送了ajax请求")
+    }
+    // 添加get
+    Axios.prototype.get = function (){
+        console.log("发送了get请求")
+        this.request()
+    }
+    // 添加post
+    Axios.prototype.post = function (){
+        console.log("发送了post请求")
+        this.request()
+    }
+
+    // let axios = new Axios({})
+    // axios.request()
+    // axios.get()
+    // axios.post()
+
+
+    function createInstance(){
+        // 创建实例
+        let context = new Axios({})   // context.get()
+        // 实现函数调用
+        let instance = Axios.prototype.request.bind(context)  // instance()
+        // 添加实例方法到instance    instance.get()
+        Object.keys(Axios.prototype).forEach((method)=>{
+            instance[method] = Axios.prototype[method].bind(context)
+        })
+        // 添加config interceptors
+        Object.keys(context).forEach((attr)=>{
+            instance[attr] = context[attr]
+        })
+
+        return instance;
+    }
+    let axios = createInstance()
+
+    // axios()
+    axios.get()
+
 
 
 
